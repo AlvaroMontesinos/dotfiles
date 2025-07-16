@@ -1,0 +1,11 @@
+[Unit]
+Description=DisplayLink Driver Service
+After=plasma-core.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sudo /bin/systemctl start displaylink-driver.service
+RemainAfterExit=yes
+
+[Install]
+WantedBy=plasma-workspace.target
