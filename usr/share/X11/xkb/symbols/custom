@@ -1,0 +1,113 @@
+// create sudo nano /usr/share/X11/xkb/symbols/custom and paste this
+// modify the custom in sudo nano /usr/share/X11/xkb/rules/evdev.xml whit 
+//<layout>
+//  <configItem>
+//    <name>custom</name>
+//    <shortDescription>en</shortDescription>
+//    <description>English (Custom)</description>
+//    <languageList>
+//      <iso639Id>eng</iso639Id>
+//    </languageList>
+//  </configItem>
+//  <variantList/>
+//</layout>
+//
+// in terminal run 
+// gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'custom+basic')]"
+// update the file in sudo nano /etc/default/keyboard with
+// XKBLAYOUT="custom"
+// XKBVARIANT="basic"
+// XKBOPTIONS="lv3:ralt_switch,caps:swapescape"
+//
+// in terminal run 
+//setxkbmap -layout custom -variant basic
+// and for Wayland run
+// gsettings reset org.gnome.desktop.input-sources
+// gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'custom+basic')]"
+// setxkbmap -option caps:swapescape
+// set in UI setting model as generic 104 keys-pc and keyboard setting->keyboard->Custom and select this. Enable swap esc and caps lock and 3 layer with alt right 
+// (optional) if the keybard is not config by default at start GUI create the file ~/.config/autostart/custom-keyboard-layout.desktop and set:
+//
+//[Desktop Entry]
+//Type=Application
+//Name=Custom Keyboard Layout
+//Comment=Set keyboard layout with caps:swapescape
+//Exec=setxkbmap -layout custom -variant basic -option caps:swapescape -option lv3:ralt_switch
+//Hidden=false
+//X-GNOME-Autostart-enabled=true
+
+
+partial default alphanumeric_keys
+xkb_symbols "basic" {
+    include "us(basic)"
+    name[Group1] = "My Custom Layout";
+    
+    // Use both Alt keys for level3 (better compatibility)
+    include "level3(alt_switch)"
+    
+    // Swap Escape with Caps Lock (Caps becomes Esc, Esc becomes Caps)
+    key <CAPS> { [ Escape ] };
+    key <ESC>  { [ Caps_Lock ] };
+    
+    // run as well setxkbmap -option caps:swapescape
+    
+    // Top row
+    key <AE01> { [ 1, exclam ] };
+    key <AE02> { [ 2, at ] };
+    key <AE03> { [ 3, numbersign ] };
+    key <AE04> { [ 4, dollar ] };
+    key <AE05> { [ 5, percent ] };
+    key <AE06> { [ 6, asciicircum ] };
+    key <AE07> { [ 7, ampersand ] };
+    key <AE08> { [ 8, asterisk ] };
+    key <AE09> { [ 9, parenleft ] };
+    key <AE10> { [ 0, parenright ] };
+    key <AE11> { [ minus, underscore ] };
+    key <AE12> { [ equal, plus ] };
+    
+    // QWER row with AltGr symbols
+    key <AD01> { [ q, Q, exclam ] };          // AltGr+q = !
+    key <AD02> { [ w, W, ampersand ] };       // AltGr+w = &
+    key <AD03> { [ e, E, bar ] };             // AltGr+e = |
+    key <AD04> { [ r, R, grave ] };          // AltGr+r = `
+    key <AD05> { [ t, T, percent ] };         // AltGr+t = %
+    
+        // ASDF Row (Left-hand operators)
+    key <AC01> { [ a, A, equal ] };           // a → = (AltGr)
+    key <AC02> { [ s, S, minus ] };           // s → - (AltGr)
+    key <AC03> { [ d, D, plus ] };            // d → + (AltGr)
+    key <AC04> { [ f, F, underscore ] };      // f → _ (AltGr)
+    key <AC05> { [ g, G, asciitilde ] };      // g → ~ (AltGr)
+    key <AC06> { [ h, H, Left ] };            // AltGr+h = ←
+    key <AC07> { [ j, J, Down ] };            // AltGr+j = ↓
+    key <AC08> { [ k, K, Up ] };              // AltGr+k = ↑
+    key <AC09> { [ l, L, Right ] };           // AltGr+l = →
+    
+        // -- Bottom Row (ZXCV) --
+    key <AB01> { [ z,    Z               ]   };
+    key <AB02> { [ x,    X,  Delete      ]   }; // AltGr+c = Delete
+    key <AB05> { [ b,    B,  BackSpace   ]   }; // AltGr+v = Backspace
+    key <AB06> { [ n,    N,  ntilde, Ntilde ]   }; // AltGr+n = ñ, AltGr+Shift+n = Ñ
+    key <AB07> { [ m,    M               ]   };
+    key <AB08> { [ comma, less           ]   };
+    key <AB09> { [ period,greater        ]   };
+    key <AB10> { [ slash, question       ]   };
+
+    // -- Word-based Editing using RedirectKey action --
+    key <AB03> { // AltGr+x = Ctrl+Delete (delete word after cursor)
+        [ c,    C,  NoSymbol ],
+        actions[Group1] = [ NoAction(), NoAction(), RedirectKey(key=<DELE>, mods=Control) ]
+    };
+    key <AB04> { // AltGr+b = Ctrl+Backspace (delete word before cursor)
+        [ v,    V,  NoSymbol ],
+        actions[Group1] = [ NoAction(), NoAction(), RedirectKey(key=<BKSP>, mods=Control) ]
+    };
+    
+    // Rest of layout remains unchanged...
+    // [Include all your other key definitions here]
+    
+    // Important includes for full functionality
+    include "pc(pc105)" //configure in the UI as well 
+    include "compose(rctrl)"
+    // include "ctrl(nocaps)"
+}; 
