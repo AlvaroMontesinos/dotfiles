@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Custom Keyboard Layout
+Comment=Set keyboard layout with caps:swapescape
+Exec=setxkbmap -layout custom -variant basic -option caps:swapescape -option lv3:ralt_switch
+Hidden=false
+X-GNOME-Autostart-enabled=true
