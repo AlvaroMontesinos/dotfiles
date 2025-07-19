@@ -2,12 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=~/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="pixegami-agnoster"
+#ZSH_THEME="pixegami-agnoster"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -122,6 +122,26 @@ unset __conda_setup
 # --- CUSTOM --- 
 # --- source
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# --- VIM MODE CONFIGURATION ---
+# Enhanced vi mode with conflict resolution
+bindkey -v
+
+# Disable terminal flow control to free up Ctrl+s for tmux scrolling (only in interactive shells)
+[[ $- == *i* ]] && stty -ixon
+
+# Mode indicator function
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'  # Block cursor for command mode
+  elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'  # Beam cursor for insert mode
+  fi
+}
+zle -N zle-keymap-select
+
+# Initialize cursor shape
+echo -ne '\e[5 q'
 
 # --- Alias
 
