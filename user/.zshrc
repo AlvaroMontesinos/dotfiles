@@ -7,7 +7,7 @@ export ZSH=~/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="pixegami-agnoster"
+ZSH_THEME="pixegami-agnoster"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -62,7 +62,11 @@ plugins=(
   git
   zsh-syntax-highlighting
   zsh-autosuggestions
-  zsh-vi-mode
+  vi-mode
+  fzf
+  thefuck
+  zoxide
+  eza
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -124,24 +128,16 @@ unset __conda_setup
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # --- VIM MODE CONFIGURATION ---
-# Enhanced vi mode with conflict resolution
-bindkey -v
+# Using Oh My Zsh built-in vi-mode plugin
+
+# Enable cursor shape changes (requires VI_MODE_SET_CURSOR=true before plugin loads)
+export VI_MODE_SET_CURSOR=true
+
+# Configure thefuck alias (handled by thefuck plugin)
+export THEFUCK_ALIAS=fix
 
 # Disable terminal flow control to free up Ctrl+s for tmux scrolling (only in interactive shells)
 [[ $- == *i* ]] && stty -ixon
-
-# Mode indicator function
-function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'  # Block cursor for command mode
-  elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q'  # Beam cursor for insert mode
-  fi
-}
-zle -N zle-keymap-select
-
-# Initialize cursor shape
-echo -ne '\e[5 q'
 
 # --- Alias
 
@@ -165,9 +161,10 @@ alias ...="cd ../.."
 alias ll="ls -la"
 alias fdir='ls -la | grep'
 
-eval "$(thefuck --alias fix)"
-eval "$(fzf --zsh)"
-eval "$(zoxide init zsh)"
+# External tools now handled by oh-my-zsh plugins
+# eval "$(thefuck --alias fix)"
+# eval "$(fzf --zsh)"
+# eval "$(zoxide init zsh)"
 
 export EXA_COLORS="\
 uu=36:\
