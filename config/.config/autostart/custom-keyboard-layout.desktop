@@ -1,7 +1,10 @@
 [Desktop Entry]
 Type=Application
-Name=Custom Keyboard Layout
-Comment=Set keyboard layout with caps:swapescape
-Exec=setxkbmap -layout custom -variant basic -option caps:swapescape -option lv3:ralt_switch
+# Name=Custom Keyboard Layout
+# Comment=Set keyboard layout with caps:swapescape  
+# Exec=setxkbmap -layout custom -variant basic -option caps:swapescape -option lv3:ralt_switch
+Name=Standard US Keyboard Layout
+Comment=Set standard US keyboard layout
+Exec=setxkbmap -layout us
 Hidden=false
 X-GNOME-Autostart-enabled=true

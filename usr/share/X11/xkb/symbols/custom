@@ -18,7 +18,16 @@
 // XKBLAYOUT="custom"
 // XKBVARIANT="basic"
 // XKBOPTIONS="lv3:ralt_switch,caps:swapescape"
-//
+// 
+// update the file /etc/X11/xorg.conf.d/00-keyboard.conf as follow :
+//Section "InputClass"
+//    Identifier "system-keyboard"
+//    MatchIsKeyboard "on"
+//    Option "XkbLayout" "custom"
+//    Option "XkbVariant" "basic"
+//EndSection
+
+
 // in terminal run 
 //setxkbmap -layout custom -variant basic
 // and for Wayland run

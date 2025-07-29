@@ -64,7 +64,6 @@ plugins=(
   zsh-autosuggestions
   vi-mode
   fzf
-  thefuck
   zoxide
   eza
 )
@@ -146,9 +145,8 @@ alias nrstart="npm run start"
 alias ninst="npm install"
 alias rmnode=" rm -rf node_modules"
 alias rmangular="rm -rf .angular/cache"
-alias sisud="sudo apt update"
-alias sisug="sudo apt upgrade"
-alias sisinst="sudo apt install"
+alias sysinst="sudo apt install"
+alias sysup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
 
 # Quick edit & reload zsh
 alias zshconfig="vim ~/.zshrc"  # or nano/vim
@@ -161,10 +159,10 @@ alias ...="cd ../.."
 alias ll="ls -la"
 alias fdir='ls -la | grep'
 
-# External tools now handled by oh-my-zsh plugins
-# eval "$(thefuck --alias fix)"
-# eval "$(fzf --zsh)"
-# eval "$(zoxide init zsh)"
+# External tools
+eval "$(thefuck --alias fix)"
+# eval "$(fzf --zsh)"  # handled by fzf plugin
+# eval "$(zoxide init zsh)"  # handled by zoxide plugin
 
 export EXA_COLORS="\
 uu=36:\
@@ -187,4 +185,7 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$PATH:/opt/mssql-tools/bin"
 export GTK_IM_MODULE=xim
 export QT_IM_MODULE=xim
+
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 

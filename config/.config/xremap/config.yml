@@ -1,0 +1,37 @@
+modmap:
+  - name: Swap Escape and Caps Lock
+    remap:
+      CapsLock: Esc
+      Esc: CapsLock
+
+keymap:
+  - name: Custom Layout AltGr Layer
+    remap:
+      # QWER row symbols
+      Alt_R-q: Shift-1
+      Alt_R-w: Shift-7
+      Alt_R-e: Shift-backslash
+      Alt_R-r: grave
+      Alt_R-t: Shift-5
+      
+      # ASDF row operators
+      Alt_R-a: equal
+      Alt_R-s: minus
+      Alt_R-d: Shift-equal
+      Alt_R-f: Shift-minus
+      Alt_R-g: Shift-grave
+      
+      # HJKL navigation
+      Alt_R-h: Left
+      Alt_R-j: Down
+      Alt_R-k: Up
+      Alt_R-l: Right
+      
+      # Bottom row editing
+      Alt_R-x: Delete
+      Alt_R-b: BackSpace
+      Alt_R-n: Shift-semicolon
+      
+      # Word editing
+      Alt_R-c: C-Delete      # Ctrl+Delete
+      Alt_R-v: C-BackSpace   # Ctrl+Backspace
