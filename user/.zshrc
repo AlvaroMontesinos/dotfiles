@@ -152,6 +152,7 @@ alias sysup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
 alias zshconfig="vim ~/.zshrc"  # or nano/vim
 alias zshload="source ~/.zshrc"
 alias kittyconf="vim ~/.config/kitty/kitty.conf"
+alias gitcred="git config --list"
 
 # Directory navigation
 alias ..="cd .."
@@ -189,3 +190,22 @@ export QT_IM_MODULE=xim
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
+killport() {
+    if [ -z "$1" ]; then
+        echo "Usage: killport <port>"
+        return 1
+    fi
+    
+    echo "Checking processes on port $1..."
+    PID=$(sudo lsof -ti :$1)
+    
+    if [ -z "$PID" ]; then
+        echo "No process found on port $1"
+        return 0
+    fi
+    
+    echo "Found process(es) with PID: $PID"
+    echo "Killing process(es)..."
+    sudo kill -9 $PID
+    echo "Process(es) killed successfully"
+}
