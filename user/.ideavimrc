@@ -242,22 +242,23 @@ nnoremap <Leader>rc :action RunClass<CR>
 " Debugging Step Actions
 " =============================================================================
 " Step over
-nnoremap <leader>ds :action StepOver<CR>
+" Step over
+nnoremap K :action StepOver<CR>
+
+" Resume program execution
+nnoremap J :action Resume<CR>
 
 " Step into
-nnoremap <leader>di :action StepInto<CR>
+nnoremap \ :action StepInto<CR>
 
 " Step out
-nnoremap <leader>do :action StepOut<CR>
+" nnoremap \ :action StepOut<CR>
 
 " Run to cursor
 nnoremap <leader>dc :action Debugger.RunToCursor<CR>
 
 " Force run to cursor
 nnoremap <leader>df :action Debugger.ForceRunToCursor<CR>
-
-" Resume program execution
-nnoremap <leader>dr :action Resume<CR>
 
 " Toggle breakpoint at the current line
 nnoremap <leader>db :action ToggleLineBreakpoint<CR>
